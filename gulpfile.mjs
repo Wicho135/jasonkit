@@ -81,7 +81,7 @@ gulp.task('copy:style', () => {
   const banner = `/*! HTML5 Boilerplate v${pkg.version} | ${pkg.license} License | ${pkg.homepage} */\n\n`;
 
   return gulp
-    .src('node_modules/main.css/dist/main.css')
+    .src(`${dirs.src}/css/style.css`)
     .pipe(gulpHeader(banner))
     .pipe(
       gulpAutoPrefixer({
@@ -105,7 +105,7 @@ gulp.task('copy:misc', () =>
 
         // Exclude the following files
         // (other tasks will handle the copying of these files)
-        `!${dirs.src}/css/main.css`,
+        `!${dirs.src}/css/**`,
         `!${dirs.src}/index.html`,
         `!**/.DS_Store`,
       ],

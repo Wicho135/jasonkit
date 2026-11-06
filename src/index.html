@@ -1,33 +1,517 @@
 <!doctype html>
-<html lang="">
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Herramientas JSON online gratis — JSONKit</title>
+    <meta
+      name="description"
+      content="Colección de herramientas online para desarrolladores: formateador JSON, convertidor JSON a CSV, Base64, decodificador JWT y generador de UUID. Gratis y 100% local." />
+    <meta name="theme-color" content="#0f172a" />
+    <meta name="color-scheme" content="dark" />
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width">
-  <title></title>
-  <link rel="stylesheet" href="css/style.css">
-  <meta name="description" content="">
+    <meta
+      property="og:title"
+      content="Herramientas JSON online gratis — JSONKit" />
+    <meta
+      property="og:description"
+      content="Formatea JSON, convierte a CSV, codifica Base64, decodifica JWT y genera UUID sin enviar datos a ningún servidor." />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_ES" />
 
-  <meta property="og:title" content="">
-  <meta property="og:type" content="">
-  <meta property="og:url" content="">
-  <meta property="og:image" content="">
-  <meta property="og:image:alt" content="">
+    <meta name="twitter:card" content="summary" />
+    <meta
+      name="twitter:title"
+      content="Herramientas JSON online gratis — JSONKit" />
+    <meta
+      name="twitter:description"
+      content="Cinco utilidades para desarrolladores que funcionan por completo en tu navegador." />
 
-  <link rel="icon" href="/favicon.ico" sizes="any">
-  <link rel="icon" href="/icon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="icon.png">
+    <link rel="icon" href="favicon.ico" sizes="any" />
+    <link rel="icon" href="icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="icon.png" />
+    <link rel="manifest" href="site.webmanifest" />
+    <link rel="stylesheet" href="css/style.css" />
 
-  <link rel="manifest" href="site.webmanifest">
-  <meta name="theme-color" content="#fafafa">
-</head>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "JSONKit",
+        "url": "./",
+        "description": "Herramientas online gratuitas para trabajar con JSON, CSV, Base64, JWT y UUID.",
+        "inLanguage": "es"
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        "name": "Herramientas de JSONKit",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Formateador JSON",
+            "url": "json-formatter.html"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Convertidor JSON a CSV",
+            "url": "json-to-csv.html"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Codificador Base64",
+            "url": "base64-encoder.html"
+          },
+          {
+            "@type": "ListItem",
+            "position": 4,
+            "name": "Decodificador JWT",
+            "url": "jwt-decoder.html"
+          },
+          {
+            "@type": "ListItem",
+            "position": 5,
+            "name": "Generador de UUID",
+            "url": "uuid-generator.html"
+          }
+        ]
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "¿JSONKit es gratis?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Sí. Todas las herramientas son gratuitas y no requieren registro. El sitio se mantiene con espacios publicitarios."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Mis datos se envían a algún servidor?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Cada herramienta se ejecuta con JavaScript en tu navegador. Los datos que pegas o seleccionas no se envían ni se almacenan."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Puedo usar las herramientas sin conexión?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Una vez cargada la página, las herramientas siguen funcionando sin conexión porque no dependen de llamadas a un backend."
+            }
+          }
+        ]
+      }
+    </script>
+  </head>
 
-<body>
+  <body>
+    <a class="skip-link" href="#herramientas">Saltar al contenido</a>
 
-  <!-- Add your site or application content here -->
-  <p>Hello world! This is HTML5 Boilerplate.</p>
-  <script src="js/app.js"></script>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="./" aria-label="JSONKit — Inicio">
+          <span class="brand-mark" aria-hidden="true">{}</span>
+          <span class="brand-name">JSON<span>Kit</span></span>
+        </a>
 
-</body>
+        <nav class="site-nav" aria-label="Herramientas">
+          <a class="nav-link" href="./" aria-current="page">Inicio</a>
+          <a class="nav-link" href="json-formatter.html">Formateador</a>
+          <a class="nav-link" href="json-to-csv.html">JSON ↔ CSV</a>
+          <a class="nav-link" href="base64-encoder.html">Base64</a>
+          <a class="nav-link" href="jwt-decoder.html">JWT</a>
+          <a class="nav-link" href="uuid-generator.html">UUID</a>
+        </nav>
 
+        <div class="header-meta">
+          <span class="privacy-pill">
+            <svg
+              class="icon icon--sm"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true">
+              <rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+            100% local
+          </span>
+        </div>
+      </div>
+    </header>
+
+    <noscript>
+      <div class="container">
+        <p class="noscript">
+          Las herramientas necesitan JavaScript para funcionar. Actívalo en tu
+          navegador y recarga la página.
+        </p>
+      </div>
+    </noscript>
+
+    <main class="container page" id="herramientas">
+      <aside class="ad ad--leaderboard" aria-label="Espacio publicitario">
+        <span class="ad-label">Publicidad</span>
+        <span class="ad-size">Banner 728 × 90</span>
+      </aside>
+
+      <div class="layout">
+        <div class="workspace">
+          <section class="hero" aria-labelledby="hub-title">
+            <p class="eyebrow">JSON · CSV · Base64 · JWT · UUID</p>
+            <h1 id="hub-title">
+              Herramientas <span class="text-gradient">JSON</span> para cada día
+            </h1>
+            <p class="lead">
+              Cinco utilidades rápidas para desarrolladores. Sin registro, sin
+              instalación y sin enviar tus datos a ningún servidor: todo se
+              procesa dentro de tu navegador.
+            </p>
+          </section>
+
+          <section aria-labelledby="tools-title">
+            <h2 class="sr-only" id="tools-title">Listado de herramientas</h2>
+
+            <div class="tool-grid">
+              <a class="tool-tile" href="json-formatter.html">
+                <span class="tool-tile-icon" aria-hidden="true">
+                  <svg
+                    class="icon"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path
+                      d="M8 3H7a2 2 0 0 0-2 2v5a2 2 0 0 1-2 2 2 2 0 0 1 2 2v5c0 1.1.9 2 2 2h1"></path>
+                    <path
+                      d="M16 21h1a2 2 0 0 0 2-2v-5c0-1.1.9-2 2-2a2 2 0 0 1-2-2V5a2 2 0 0 0-2-2h-1"></path>
+                  </svg>
+                </span>
+                <h3>Formateador JSON</h3>
+                <p>
+                  Valida, ordena y minifica JSON con resaltado de sintaxis y
+                  detección de errores por línea.
+                </p>
+                <span class="tool-tile-link">Abrir herramienta →</span>
+              </a>
+
+              <a class="tool-tile" href="json-to-csv.html">
+                <span class="tool-tile-icon" aria-hidden="true">
+                  <svg
+                    class="icon"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path d="M3 3h18v18H3z"></path>
+                    <path d="M3 9h18"></path>
+                    <path d="M9 9v12"></path>
+                  </svg>
+                </span>
+                <h3>Convertidor JSON ↔ CSV</h3>
+                <p>
+                  Pasa de JSON a CSV y de CSV a JSON, aplana objetos anidados y
+                  descarga el archivo.
+                </p>
+                <span class="tool-tile-link">Abrir herramienta →</span>
+              </a>
+
+              <a class="tool-tile" href="base64-encoder.html">
+                <span class="tool-tile-icon" aria-hidden="true">
+                  <svg
+                    class="icon"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path d="M4 7V5a1 1 0 0 1 1-1h2"></path>
+                    <path d="M17 4h2a1 1 0 0 1 1 1v2"></path>
+                    <path d="M20 17v2a1 1 0 0 1-1 1h-2"></path>
+                    <path d="M7 20H5a1 1 0 0 1-1-1v-2"></path>
+                    <path d="M8 9h8"></path>
+                    <path d="M8 13h5"></path>
+                    <path d="M8 17h8"></path>
+                  </svg>
+                </span>
+                <h3>Codificador Base64</h3>
+                <p>
+                  Codifica texto o archivos a Base64 y recupera los bytes
+                  originales con validación de errores.
+                </p>
+                <span class="tool-tile-link">Abrir herramienta →</span>
+              </a>
+
+              <a class="tool-tile" href="jwt-decoder.html">
+                <span class="tool-tile-icon" aria-hidden="true">
+                  <svg
+                    class="icon"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <circle cx="8" cy="15" r="4"></circle>
+                    <path d="m10.85 12.15 7.4-7.4"></path>
+                    <path d="m18 5 2 2"></path>
+                    <path d="m15 8 2 2"></path>
+                  </svg>
+                </span>
+                <h3>Decodificador JWT</h3>
+                <p>
+                  Inspecciona header, payload y expiración de un token sin
+                  enviarlo a ningún servidor.
+                </p>
+                <span class="tool-tile-link">Abrir herramienta →</span>
+              </a>
+
+              <a class="tool-tile" href="uuid-generator.html">
+                <span class="tool-tile-icon" aria-hidden="true">
+                  <svg
+                    class="icon"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path d="M12 2a10 10 0 1 0 10 10c0-1.5-.3-2.9-1-4.1"></path>
+                    <path d="M12 8a4 4 0 1 0 4 4c0-.7-.2-1.4-.6-2"></path>
+                    <circle cx="12" cy="12" r="1"></circle>
+                    <path d="M18 2v4"></path>
+                    <path d="M20 4h-4"></path>
+                  </svg>
+                </span>
+                <h3>Generador de UUID</h3>
+                <p>
+                  Crea lotes de UUID v4 o v1, personaliza mayúsculas y guiones y
+                  copia o descarga el resultado.
+                </p>
+                <span class="tool-tile-link">Abrir herramienta →</span>
+              </a>
+            </div>
+          </section>
+
+          <div class="seo-content">
+            <section class="content-card" aria-labelledby="why-title">
+              <h2 id="why-title">Por qué usar JSONKit</h2>
+              <p>
+                JSONKit reúne las utilidades que más se usan al depurar APIs,
+                preparar datos o revisar un token. Cada herramienta está pensada
+                para resolver una tarea concreta sin menús innecesarios ni
+                cuentas de usuario.
+              </p>
+              <ul>
+                <li>
+                  <strong>Privacidad real:</strong> no hay llamadas a un
+                  backend. El procesamiento ocurre en el navegador.
+                </li>
+                <li>
+                  <strong>Sin instalación:</strong> abre la página y empieza a
+                  trabajar; no necesitas plugins ni dependencias.
+                </li>
+                <li>
+                  <strong>Diseño mobile-first:</strong> la interfaz se adapta a
+                  móvil, tablet y escritorio.
+                </li>
+                <li>
+                  <strong>Gratis:</strong> no hay registro ni límites de uso. El
+                  sitio se sostiene con publicidad.
+                </li>
+              </ul>
+              <h3>¿Por dónde empiezo?</h3>
+              <p>
+                Si tienes un JSON desordenado, abre el
+                <a href="json-formatter.html">formateador</a>. Si necesitas
+                llevar datos a una hoja de cálculo, usa el
+                <a href="json-to-csv.html">convertidor JSON ↔ CSV</a>. Para
+                decodificar credenciales o generar identificadores, tienes el
+                <a href="jwt-decoder.html">decodificador JWT</a> y el
+                <a href="uuid-generator.html">generador de UUID</a>.
+              </p>
+            </section>
+
+            <section class="content-card" aria-labelledby="faq-title">
+              <h2 id="faq-title">Preguntas frecuentes</h2>
+              <div class="faq">
+                <details>
+                  <summary>¿JSONKit es gratis?</summary>
+                  <p>
+                    Sí. Todas las herramientas son gratuitas y no requieren
+                    registro. El sitio se mantiene con espacios publicitarios.
+                  </p>
+                </details>
+                <details>
+                  <summary>¿Mis datos se envían a algún servidor?</summary>
+                  <p>
+                    No. Cada herramienta se ejecuta con JavaScript en tu
+                    navegador. Los datos que pegas o seleccionas no se envían ni
+                    se almacenan.
+                  </p>
+                </details>
+                <details>
+                  <summary>¿Puedo usar las herramientas sin conexión?</summary>
+                  <p>
+                    Una vez cargada la página, las herramientas siguen
+                    funcionando sin conexión porque no dependen de llamadas a un
+                    backend.
+                  </p>
+                </details>
+              </div>
+            </section>
+          </div>
+        </div>
+
+        <aside class="sidebar" aria-label="Información adicional">
+          <aside class="ad ad--rectangle" aria-label="Espacio publicitario">
+            <span class="ad-label">Publicidad</span>
+            <span class="ad-size">Banner 300 × 250</span>
+          </aside>
+
+          <section class="info-card" aria-labelledby="privacy-title">
+            <h2 class="info-title" id="privacy-title">Privacidad primero</h2>
+            <ul class="tips-list">
+              <li>
+                <svg
+                  class="icon icon--accent"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true">
+                  <path
+                    d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path>
+                  <path d="m9 12 2 2 4-4"></path>
+                </svg>
+                <span
+                  ><strong>Sin subidas.</strong> Tus documentos y tokens no
+                  salen del navegador.</span
+                >
+              </li>
+              <li>
+                <svg
+                  class="icon icon--accent"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true">
+                  <path d="M12 2v20"></path>
+                  <path d="m17 7-5-5-5 5"></path>
+                  <path d="m7 17 5 5 5-5"></path>
+                </svg>
+                <span
+                  ><strong>Sin cuentas.</strong> No pedimos correo, teléfono ni
+                  datos personales.</span
+                >
+              </li>
+              <li>
+                <svg
+                  class="icon icon--accent"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true">
+                  <path
+                    d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"></path>
+                </svg>
+                <span
+                  ><strong>Rápido.</strong> Sin esperas de red ni recargas
+                  innecesarias.</span
+                >
+              </li>
+            </ul>
+          </section>
+
+          <section class="info-card" aria-labelledby="tools-side-title">
+            <h2 class="info-title" id="tools-side-title">Accesos directos</h2>
+            <ul class="sidebar-links">
+              <li>
+                <a href="json-formatter.html"
+                  >Formateador JSON <span>Validar</span></a
+                >
+              </li>
+              <li>
+                <a href="json-to-csv.html"
+                  >Convertidor JSON ↔ CSV <span>Tablas</span></a
+                >
+              </li>
+              <li>
+                <a href="base64-encoder.html"
+                  >Codificador Base64 <span>Texto y archivos</span></a
+                >
+              </li>
+              <li>
+                <a href="jwt-decoder.html"
+                  >Decodificador JWT <span>Tokens</span></a
+                >
+              </li>
+              <li>
+                <a href="uuid-generator.html"
+                  >Generador de UUID <span>v4 y v1</span></a
+                >
+              </li>
+            </ul>
+          </section>
+        </aside>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <p class="footer-brand">JSON<span>Kit</span></p>
+        <p>
+          © <span id="year">2026</span> JSONKit · Herramientas para
+          desarrolladores
+        </p>
+        <p class="footer-note">
+          <svg
+            class="icon icon--sm"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true">
+            <rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+          </svg>
+          Sin servidores. Sin tracking.
+        </p>
+      </div>
+    </footer>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script src="js/app.js"></script>
+  </body>
 </html>

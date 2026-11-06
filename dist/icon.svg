@@ -1,1 +1,15 @@
-<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" viewBox="0 0 192 192"><path fill="#e08524" d="M75.3 73.4H18.4l45.3 34.3L48.3 163l46.1-32.3 48.2 34.6-16.9-58.3 44.9-33.6H115l-20.5-55-19.2 55z"/><path d="m96.7 18.8 18.2 8.2 16.5 44.3h-15.1L96.7 18.8zm-47 146 18.7 9.9 42.6-29.9-16.5-11.4-44.8 31.4zm79.1-56.8 17.4 9.4 18.6 60.1-19.7-11.3-16.3-58.2z"/><path d="m173.1 74.3 17.8 9.2-44.7 34-17.4-9.4 44.3-33.8z"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" role="img" aria-label="JSONKit">
+  <defs>
+    <linearGradient id="brand" x1="16" y1="16" x2="176" y2="176" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#6366f1"></stop>
+      <stop offset="0.55" stop-color="#8b5cf6"></stop>
+      <stop offset="1" stop-color="#38bdf8"></stop>
+    </linearGradient>
+  </defs>
+  <rect width="192" height="192" rx="44" fill="#0f172a"></rect>
+  <rect x="8" y="8" width="176" height="176" rx="38" fill="url(#brand)"></rect>
+  <g fill="none" stroke="#ffffff" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M78 54H70c-9 0-14 5-14 14v12c0 7-4 11-11 11 7 0 11 4 11 11v12c0 9 5 14 14 14h8"></path>
+    <path d="M114 54h8c9 0 14 5 14 14v12c0 7 4 11 11 11-7 0-11 4-11 11v12c0 9-5 14-14 14h-8"></path>
+  </g>
+</svg>
