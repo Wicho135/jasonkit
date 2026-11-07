@@ -1,0 +1,589 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      Decodificador JWT online — Header, payload y expiración | JSONKit
+    </title>
+    <meta
+      name="description"
+      content="Decodifica un JWT online y revisa su header, payload y fecha de expiración. Inspección 100% local y privada: tu token nunca se envía a un servidor." />
+    <meta name="theme-color" content="#0f172a" />
+    <meta name="color-scheme" content="dark" />
+    <link rel="canonical" href="https://jsonkit.lat/jwt-decoder.html" />
+
+    <meta
+      property="og:title"
+      content="Decodificador JWT online — Header, payload y expiración | JSONKit" />
+    <meta
+      property="og:description"
+      content="Inspecciona JSON Web Tokens sin enviarlos a ningún servidor. Header, payload, claims y expiración al instante." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://jsonkit.lat/jwt-decoder.html" />
+    <meta property="og:site_name" content="JSONKit" />
+    <meta property="og:locale" content="es_ES" />
+
+    <meta name="twitter:card" content="summary" />
+    <meta
+      name="twitter:title"
+      content="Decodificador JWT online — Header, payload y expiración | JSONKit" />
+    <meta
+      name="twitter:description"
+      content="Decodifica JWT localmente y comprueba si el token está vigente o caducado." />
+
+    <link rel="icon" href="favicon.ico" sizes="any" />
+    <link rel="icon" href="icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="icon.png" />
+    <link rel="manifest" href="site.webmanifest" />
+    <link rel="stylesheet" href="css/style.css" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Decodificador JWT",
+        "url": "https://jsonkit.lat/jwt-decoder.html",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Any",
+        "browserRequirements": "Requiere JavaScript",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "EUR"
+        },
+        "description": "Decodificador local de JSON Web Tokens para inspeccionar header, payload y expiración.",
+        "featureList": [
+          "Decodificar el header de un JWT",
+          "Decodificar el payload de un JWT",
+          "Mostrar emisión, vigencia y expiración",
+          "Resaltado de sintaxis JSON",
+          "Copiar cada sección del token"
+        ]
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "¿Decodificar un JWT verifica su firma?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Esta herramienta solo decodifica el header y el payload en Base64URL. Para validar la firma necesitas la clave secreta o la clave pública del emisor y una librería criptográfica."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Es seguro pegar un JWT en esta página?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "El token se procesa únicamente en tu navegador y no se envía a ningún servidor. Aun así, evita pegar tokens de producción en equipos compartidos y recuerda que el payload no está cifrado."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Qué significan iat, nbf y exp?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "iat es la fecha de emisión, nbf la fecha desde la que el token es válido y exp la fecha de expiración. Se expresan en segundos desde el 1 de enero de 1970 (epoch Unix)."
+            }
+          }
+        ]
+      }
+    </script>
+  </head>
+
+  <body>
+    <a class="skip-link" href="#herramienta">Saltar al contenido</a>
+
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="./" aria-label="JSONKit — Inicio">
+          <span class="brand-mark" aria-hidden="true">{}</span>
+          <span class="brand-name">JSON<span>Kit</span></span>
+        </a>
+
+        <nav class="site-nav" aria-label="Herramientas">
+          <a class="nav-link" href="./">Inicio</a>
+          <a class="nav-link" href="json-formatter.html">Formateador</a>
+          <a class="nav-link" href="json-to-csv.html">JSON ↔ CSV</a>
+          <a class="nav-link" href="base64-encoder.html">Base64</a>
+          <a class="nav-link" href="jwt-decoder.html" aria-current="page"
+            >JWT</a
+          >
+          <a class="nav-link" href="uuid-generator.html">UUID</a>
+        </nav>
+
+        <div class="header-meta">
+          <span class="privacy-pill">
+            <svg
+              class="icon icon--sm"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true">
+              <rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+            100% local
+          </span>
+        </div>
+      </div>
+    </header>
+
+    <noscript>
+      <div class="container">
+        <p class="noscript">
+          Esta herramienta necesita JavaScript para funcionar. Actívalo en tu
+          navegador y recarga la página.
+        </p>
+      </div>
+    </noscript>
+
+    <main class="container page" id="herramienta">
+      <aside class="ad ad--leaderboard" aria-label="Espacio publicitario">
+        <span class="ad-label">Publicidad</span>
+        <span class="ad-size">Banner 728 × 90</span>
+      </aside>
+
+      <div class="layout">
+        <div class="workspace">
+          <section class="hero" aria-labelledby="tool-title">
+            <p class="eyebrow">Header · Payload · Expiración</p>
+            <h1 id="tool-title">
+              Decodificador <span class="text-gradient">JWT</span>
+            </h1>
+            <p class="lead">
+              Inspecciona un JSON Web Token sin enviarlo a ningún servidor.
+              Consulta el algoritmo, los claims y si el token sigue vigente o ha
+              caducado.
+            </p>
+          </section>
+
+          <section class="tool-card" aria-labelledby="jwt-title">
+            <h2 class="sr-only" id="jwt-title">Decodificador de JWT</h2>
+
+            <div class="toolbar">
+              <div class="status" id="status" role="status" aria-live="polite">
+                <span class="status-dot" aria-hidden="true"></span>
+                <span id="status-text">Esperando token JWT…</span>
+              </div>
+            </div>
+
+            <div class="editor-pane editor-pane--short">
+              <div class="pane-head">
+                <label class="pane-title" for="jwt-input">Token JWT</label>
+                <span class="pane-meta" id="jwt-input-meta">0 caracteres</span>
+              </div>
+              <textarea
+                id="jwt-input"
+                name="jwt-input"
+                spellcheck="false"
+                autocomplete="off"
+                autocapitalize="off"
+                placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIn0.firma"
+                aria-describedby="jwt-help"></textarea>
+            </div>
+
+            <p class="notice notice--warning" id="jwt-empty">
+              Pega un token para ver su header, payload y expiración. También
+              puedes cargar un ejemplo con el botón inferior.
+            </p>
+
+            <div
+              class="notice notice--danger"
+              id="jwt-error"
+              role="alert"
+              hidden>
+              <p class="error-message" id="jwt-error-text"></p>
+            </div>
+
+            <div id="jwt-results" hidden>
+              <div class="jwt-summary">
+                <div class="expiry-row">
+                  <span class="badge badge--neutral" id="jwt-exp-badge"
+                    >Sin expiración</span
+                  >
+                  <p class="expiry-text" id="jwt-exp-text">
+                    El payload no incluye el claim exp.
+                  </p>
+                </div>
+
+                <div class="claims">
+                  <div class="claim">
+                    <span class="claim-label">Algoritmo</span>
+                    <span class="claim-value" id="jwt-alg">—</span>
+                  </div>
+                  <div class="claim">
+                    <span class="claim-label">Emitido (iat)</span>
+                    <span class="claim-value" id="jwt-iat">—</span>
+                  </div>
+                  <div class="claim">
+                    <span class="claim-label">Válido desde (nbf)</span>
+                    <span class="claim-value" id="jwt-nbf">—</span>
+                  </div>
+                  <div class="claim">
+                    <span class="claim-label">Expira (exp)</span>
+                    <span class="claim-value" id="jwt-exp">—</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="panel-grid">
+                <section class="panel" aria-labelledby="jwt-header-title">
+                  <div class="pane-head">
+                    <h3 class="pane-title" id="jwt-header-title">Header</h3>
+                    <button
+                      type="button"
+                      class="icon-button"
+                      id="btn-copy-header"
+                      title="Copiar header"
+                      aria-label="Copiar header">
+                      <svg
+                        class="icon"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true">
+                        <rect
+                          width="14"
+                          height="14"
+                          x="8"
+                          y="8"
+                          rx="2"
+                          ry="2"></rect>
+                        <path
+                          d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path>
+                      </svg>
+                    </button>
+                  </div>
+                  <pre class="panel-code" id="jwt-header"></pre>
+                </section>
+
+                <section class="panel" aria-labelledby="jwt-payload-title">
+                  <div class="pane-head">
+                    <h3 class="pane-title" id="jwt-payload-title">Payload</h3>
+                    <button
+                      type="button"
+                      class="icon-button"
+                      id="btn-copy-payload"
+                      title="Copiar payload"
+                      aria-label="Copiar payload">
+                      <svg
+                        class="icon"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true">
+                        <rect
+                          width="14"
+                          height="14"
+                          x="8"
+                          y="8"
+                          rx="2"
+                          ry="2"></rect>
+                        <path
+                          d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path>
+                      </svg>
+                    </button>
+                  </div>
+                  <pre class="panel-code" id="jwt-payload"></pre>
+                </section>
+
+                <section class="panel" aria-labelledby="jwt-signature-title">
+                  <div class="pane-head">
+                    <h3 class="pane-title" id="jwt-signature-title">Firma</h3>
+                    <button
+                      type="button"
+                      class="icon-button"
+                      id="btn-copy-signature"
+                      title="Copiar firma"
+                      aria-label="Copiar firma">
+                      <svg
+                        class="icon"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true">
+                        <rect
+                          width="14"
+                          height="14"
+                          x="8"
+                          y="8"
+                          rx="2"
+                          ry="2"></rect>
+                        <path
+                          d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path>
+                      </svg>
+                    </button>
+                  </div>
+                  <pre
+                    class="panel-code token-signature"
+                    id="jwt-signature"></pre>
+                </section>
+              </div>
+
+              <p class="notice">
+                La firma no se verifica: solo se muestra el contenido
+                decodificado. Para validar el token usa la clave del emisor y
+                una librería criptográfica.
+              </p>
+            </div>
+
+            <div class="actionbar">
+              <button type="button" class="btn btn--primary" id="btn-sample">
+                <svg
+                  class="icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true">
+                  <path d="M5 12h14"></path>
+                  <path d="M12 5v14"></path>
+                </svg>
+                Cargar token de ejemplo
+              </button>
+
+              <button type="button" class="btn btn--ghost" id="btn-clear">
+                <svg
+                  class="icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true">
+                  <path d="M3 6h18"></path>
+                  <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"></path>
+                  <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                </svg>
+                Limpiar
+              </button>
+            </div>
+
+            <p class="sr-only" id="jwt-help">
+              El token se procesa localmente y nunca se envía a un servidor.
+            </p>
+          </section>
+
+          <div class="seo-content">
+            <section class="content-card" aria-labelledby="about-title">
+              <h2 id="about-title">Qué puedes revisar en un JWT</h2>
+              <p>
+                Un JSON Web Token tiene tres partes separadas por puntos:
+                <strong>header.payload.signature</strong>. El header indica el
+                algoritmo y el tipo; el payload contiene los claims, y la firma
+                permite al emisor demostrar que el token no ha sido alterado.
+              </p>
+              <h3>Claims habituales</h3>
+              <ul>
+                <li><strong>iss</strong>: emisor del token.</li>
+                <li>
+                  <strong>sub</strong>: identificador del usuario o sujeto.
+                </li>
+                <li><strong>aud</strong>: destinatario previsto.</li>
+                <li><strong>iat</strong>: momento de emisión.</li>
+                <li><strong>nbf</strong>: momento desde el que es válido.</li>
+                <li><strong>exp</strong>: momento de expiración.</li>
+              </ul>
+              <h3>Qué significa el estado de expiración</h3>
+              <p>
+                Comparamos <strong>exp</strong> y <strong>nbf</strong> con la
+                hora actual de tu dispositivo. Un token caducado no debería
+                aceptarse aunque su firma sea correcta; un token con
+                <strong>nbf</strong> futuro todavía no es válido.
+              </p>
+              <h3>Privacidad y límites</h3>
+              <p>
+                La decodificación se hace con <strong>atob</strong> y
+                <strong>TextDecoder</strong> dentro del navegador. No se
+                verifican firmas ni se consultan listas de revocación. Recuerda
+                que el payload de un JWT está codificado, no cifrado: cualquiera
+                puede leerlo.
+              </p>
+            </section>
+
+            <section class="content-card" aria-labelledby="faq-title">
+              <h2 id="faq-title">Preguntas frecuentes</h2>
+              <div class="faq">
+                <details>
+                  <summary>¿Decodificar un JWT verifica su firma?</summary>
+                  <p>
+                    No. Esta herramienta solo decodifica el header y el payload
+                    en Base64URL. Para validar la firma necesitas la clave
+                    secreta o la clave pública del emisor y una librería
+                    criptográfica.
+                  </p>
+                </details>
+                <details>
+                  <summary>¿Es seguro pegar un JWT en esta página?</summary>
+                  <p>
+                    El token se procesa únicamente en tu navegador y no se envía
+                    a ningún servidor. Aun así, evita pegar tokens de producción
+                    en equipos compartidos y recuerda que el payload no está
+                    cifrado.
+                  </p>
+                </details>
+                <details>
+                  <summary>¿Qué significan iat, nbf y exp?</summary>
+                  <p>
+                    <strong>iat</strong> es la fecha de emisión,
+                    <strong>nbf</strong> la fecha desde la que el token es
+                    válido y <strong>exp</strong> la fecha de expiración. Se
+                    expresan en segundos desde el 1 de enero de 1970 (epoch
+                    Unix).
+                  </p>
+                </details>
+              </div>
+            </section>
+          </div>
+        </div>
+
+        <aside class="sidebar" aria-label="Información adicional">
+          <aside class="ad ad--rectangle" aria-label="Espacio publicitario">
+            <span class="ad-label">Publicidad</span>
+            <span class="ad-size">Banner 300 × 250</span>
+          </aside>
+
+          <section class="info-card" aria-labelledby="tips-title">
+            <h2 class="info-title" id="tips-title">Buenas prácticas</h2>
+            <ul class="tips-list">
+              <li>
+                <svg
+                  class="icon icon--accent"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true">
+                  <rect
+                    width="18"
+                    height="11"
+                    x="3"
+                    y="11"
+                    rx="2"
+                    ry="2"></rect>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
+                <span
+                  ><strong>No guardes secretos.</strong> El payload es legible
+                  por cualquiera que tenga el token.</span
+                >
+              </li>
+              <li>
+                <svg
+                  class="icon icon--accent"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <path d="M12 6v6l4 2"></path>
+                </svg>
+                <span
+                  ><strong>Expiración corta.</strong> Reduce el impacto de un
+                  token robado con vidas de minutos u horas.</span
+                >
+              </li>
+              <li>
+                <svg
+                  class="icon icon--accent"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true">
+                  <path d="M20 6 9 17l-5-5"></path>
+                </svg>
+                <span
+                  ><strong>Valida siempre en servidor.</strong> La comprobación
+                  del navegador es solo informativa.</span
+                >
+              </li>
+            </ul>
+          </section>
+
+          <section class="info-card" aria-labelledby="tools-title">
+            <h2 class="info-title" id="tools-title">Más herramientas</h2>
+            <ul class="sidebar-links">
+              <li>
+                <a href="json-formatter.html"
+                  >Formateador JSON <span>Validar</span></a
+                >
+              </li>
+              <li>
+                <a href="json-to-csv.html"
+                  >Convertidor JSON ↔ CSV <span>Tablas</span></a
+                >
+              </li>
+              <li>
+                <a href="base64-encoder.html"
+                  >Codificador Base64 <span>Texto y archivos</span></a
+                >
+              </li>
+              <li>
+                <a href="uuid-generator.html"
+                  >Generador de UUID <span>v4 y v1</span></a
+                >
+              </li>
+            </ul>
+          </section>
+        </aside>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <p class="footer-brand">JSON<span>Kit</span></p>
+        <p>© <span id="year">2026</span> JSONKit · Decodificador JWT</p>
+        <p class="footer-note">
+          <svg
+            class="icon icon--sm"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true">
+            <rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+          </svg>
+          Sin servidores. Sin tracking.
+        </p>
+      </div>
+    </footer>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script src="js/app.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/jwt-decoder.js"></script>
+  </body>
+</html>

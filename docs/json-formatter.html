@@ -1,0 +1,535 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Formateador JSON online — Validar y minificar | JSONKit</title>
+    <meta
+      name="description"
+      content="Formatea, valida y minifica JSON online al instante. Resaltado de sintaxis, detección de errores con línea y columna, y copiado en un clic. 100% local y gratis." />
+    <meta name="theme-color" content="#0f172a" />
+    <meta name="color-scheme" content="dark" />
+    <link rel="canonical" href="https://jsonkit.lat/json-formatter.html" />
+
+    <meta
+      property="og:title"
+      content="Formateador JSON online — Validar y minificar | JSONKit" />
+    <meta
+      property="og:description"
+      content="Formatea y valida JSON en tiempo real con resaltado de sintaxis. Tus datos nunca salen de tu navegador." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://jsonkit.lat/json-formatter.html" />
+    <meta property="og:site_name" content="JSONKit" />
+    <meta property="og:locale" content="es_ES" />
+
+    <meta name="twitter:card" content="summary" />
+    <meta
+      name="twitter:title"
+      content="Formateador JSON online — Validar y minificar | JSONKit" />
+    <meta
+      name="twitter:description"
+      content="Formatea, valida y minifica JSON al instante. Sin registro y sin subir tus datos a ningún servidor." />
+
+    <link rel="icon" href="favicon.ico" sizes="any" />
+    <link rel="icon" href="icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="icon.png" />
+    <link rel="manifest" href="site.webmanifest" />
+    <link rel="stylesheet" href="css/style.css" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Formateador JSON",
+        "url": "https://jsonkit.lat/json-formatter.html",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Any",
+        "browserRequirements": "Requiere JavaScript",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "EUR"
+        },
+        "description": "Formateador, validador y minificador de JSON que funciona completamente en el navegador.",
+        "featureList": [
+          "Formatear JSON con sangría de 2 o 4 espacios",
+          "Minificar JSON",
+          "Validación con línea y columna del error",
+          "Resaltado de sintaxis",
+          "Copiar el resultado en un clic"
+        ]
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "¿El formateador JSON envía mis datos a un servidor?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Todo el procesamiento ocurre en tu navegador con JavaScript. El JSON que pegas nunca se envía a ningún servidor ni se almacena."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Qué diferencia hay entre formatear y minificar JSON?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Formatear añade saltos de línea y sangría para que el JSON sea legible. Minificar elimina todos los espacios innecesarios para reducir el tamaño del archivo."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Puedo validar un JSON con errores de sintaxis?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Sí. La herramienta muestra el mensaje de error, la línea y la columna aproximada, además de un fragmento del contenido para localizar el problema."
+            }
+          }
+        ]
+      }
+    </script>
+  </head>
+
+  <body>
+    <a class="skip-link" href="#herramienta">Saltar al contenido</a>
+
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="./" aria-label="JSONKit — Inicio">
+          <span class="brand-mark" aria-hidden="true">{}</span>
+          <span class="brand-name">JSON<span>Kit</span></span>
+        </a>
+
+        <nav class="site-nav" aria-label="Herramientas">
+          <a class="nav-link" href="./">Inicio</a>
+          <a class="nav-link" href="json-formatter.html" aria-current="page"
+            >Formateador</a
+          >
+          <a class="nav-link" href="json-to-csv.html">JSON ↔ CSV</a>
+          <a class="nav-link" href="base64-encoder.html">Base64</a>
+          <a class="nav-link" href="jwt-decoder.html">JWT</a>
+          <a class="nav-link" href="uuid-generator.html">UUID</a>
+        </nav>
+
+        <div class="header-meta">
+          <span class="privacy-pill">
+            <svg
+              class="icon icon--sm"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true">
+              <rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+            100% local
+          </span>
+        </div>
+      </div>
+    </header>
+
+    <noscript>
+      <div class="container">
+        <p class="noscript">
+          Esta herramienta necesita JavaScript para funcionar. Actívalo en tu
+          navegador y recarga la página.
+        </p>
+      </div>
+    </noscript>
+
+    <main class="container page" id="herramienta">
+      <aside class="ad ad--leaderboard" aria-label="Espacio publicitario">
+        <span class="ad-label">Publicidad</span>
+        <span class="ad-size">Banner 728 × 90</span>
+      </aside>
+
+      <div class="layout">
+        <div class="workspace">
+          <section class="hero" aria-labelledby="tool-title">
+            <p class="eyebrow">Formatea · Valida · Minifica</p>
+            <h1 id="tool-title">
+              Formateador de <span class="text-gradient">JSON</span>
+            </h1>
+            <p class="lead">
+              Ordena, valida y comprime tus datos al instante. Todo se procesa
+              en tu navegador: tu JSON nunca viaja a un servidor.
+            </p>
+          </section>
+
+          <section class="tool-card" aria-labelledby="editor-title">
+            <h2 class="sr-only" id="editor-title">Editor de JSON</h2>
+
+            <div class="toolbar">
+              <div class="status" id="status" role="status" aria-live="polite">
+                <span class="status-dot" aria-hidden="true"></span>
+                <span id="status-text">Esperando JSON…</span>
+              </div>
+
+              <label class="indent-control" for="indent">
+                <span>Sangría</span>
+                <select id="indent">
+                  <option value="2" selected>2 espacios</option>
+                  <option value="4">4 espacios</option>
+                  <option value="tab">Tabulación</option>
+                </select>
+              </label>
+            </div>
+
+            <div class="editors">
+              <div class="editor-pane">
+                <div class="pane-head">
+                  <label class="pane-title" for="json-input">Entrada</label>
+                  <span class="pane-meta" id="input-meta"
+                    >0 caracteres · 0 líneas</span
+                  >
+                </div>
+                <textarea
+                  id="json-input"
+                  name="json-input"
+                  spellcheck="false"
+                  autocomplete="off"
+                  autocapitalize="off"
+                  placeholder='Pega aquí tu JSON...&#10;&#10;{&#10;  "ejemplo": true&#10;}'
+                  aria-describedby="input-help"></textarea>
+              </div>
+
+              <div class="editor-pane">
+                <div class="pane-head">
+                  <span class="pane-title">Resultado</span>
+                  <span class="pane-meta" id="output-meta">Sin resultado</span>
+                </div>
+                <div
+                  class="output"
+                  id="output"
+                  tabindex="0"
+                  role="region"
+                  aria-label="Resultado del JSON">
+                  <div class="output-empty" id="output-empty">
+                    <svg
+                      class="output-empty-icon"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.4"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true">
+                      <path
+                        d="M8 3H7a2 2 0 0 0-2 2v5a2 2 0 0 1-2 2 2 2 0 0 1 2 2v5c0 1.1.9 2 2 2h1"></path>
+                      <path
+                        d="M16 21h1a2 2 0 0 0 2-2v-5c0-1.1.9-2 2-2a2 2 0 0 1-2-2V5a2 2 0 0 0-2-2h-1"></path>
+                    </svg>
+                    <p>El resultado aparecerá aquí mientras escribes.</p>
+                  </div>
+
+                  <pre class="output-code" id="output-code" hidden></pre>
+
+                  <div
+                    class="output-error"
+                    id="output-error"
+                    role="alert"
+                    hidden>
+                    <p class="error-title">JSON no válido</p>
+                    <p class="error-location" id="error-location"></p>
+                    <p class="error-message" id="error-message"></p>
+                    <pre class="error-snippet" id="error-snippet" hidden></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="actionbar">
+              <button
+                type="button"
+                class="btn btn--primary"
+                id="btn-format"
+                aria-keyshortcuts="Control+Enter Meta+Enter">
+                <svg
+                  class="icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true">
+                  <path
+                    d="M8 3H7a2 2 0 0 0-2 2v5a2 2 0 0 1-2 2 2 2 0 0 1 2 2v5c0 1.1.9 2 2 2h1"></path>
+                  <path
+                    d="M16 21h1a2 2 0 0 0 2-2v-5c0-1.1.9-2 2-2a2 2 0 0 1-2-2V5a2 2 0 0 0-2-2h-1"></path>
+                </svg>
+                Formatear
+              </button>
+
+              <button type="button" class="btn btn--secondary" id="btn-minify">
+                <svg
+                  class="icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true">
+                  <path d="m14 10 7-7"></path>
+                  <path d="M20 10h-6V4"></path>
+                  <path d="m3 21 7-7"></path>
+                  <path d="M4 14h6v6"></path>
+                </svg>
+                Minificar
+              </button>
+
+              <button type="button" class="btn btn--ghost" id="btn-clear">
+                <svg
+                  class="icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true">
+                  <path d="M3 6h18"></path>
+                  <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"></path>
+                  <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                  <line x1="10" x2="10" y1="11" y2="17"></line>
+                  <line x1="14" x2="14" y1="11" y2="17"></line>
+                </svg>
+                Limpiar
+              </button>
+
+              <button
+                type="button"
+                class="btn btn--copy"
+                id="btn-copy"
+                title="Copiar al portapapeles"
+                disabled>
+                <svg
+                  class="icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true">
+                  <rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect>
+                  <path
+                    d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path>
+                </svg>
+                <span id="btn-copy-label">Copiar</span>
+              </button>
+            </div>
+
+            <div class="tool-foot">
+              <p class="shortcut-hint">
+                <kbd>Ctrl</kbd><span>+</span><kbd>Enter</kbd> para formatear
+              </p>
+              <button type="button" class="link-button" id="btn-sample">
+                Cargar ejemplo
+              </button>
+            </div>
+
+            <p class="sr-only" id="input-help">
+              El contenido se procesa localmente y nunca se envía a un servidor.
+            </p>
+          </section>
+
+          <div class="seo-content">
+            <section class="content-card" aria-labelledby="about-title">
+              <h2 id="about-title">Qué hace este formateador JSON</h2>
+              <p>
+                Esta herramienta convierte JSON compacto en un documento legible
+                con sangría y saltos de línea, o elimina los espacios para
+                obtener la versión minificada. Es útil para revisar respuestas
+                de API, depurar archivos de configuración y preparar datos antes
+                de guardarlos.
+              </p>
+              <h3>Validación clara</h3>
+              <p>
+                Si el JSON tiene un error de sintaxis, verás el mensaje del
+                motor de JavaScript junto con la línea y la columna aproximada.
+                También mostramos un fragmento del contenido con un cursor para
+                localizar el problema rápidamente.
+              </p>
+              <h3>Privado por diseño</h3>
+              <p>
+                No hay backend ni peticiones de red. El texto que pegas se
+                procesa con <strong>JSON.parse</strong> y
+                <strong>JSON.stringify</strong> dentro de tu navegador, de modo
+                que no se almacena ni se comparte.
+              </p>
+            </section>
+
+            <section class="content-card" aria-labelledby="faq-title">
+              <h2 id="faq-title">Preguntas frecuentes</h2>
+              <div class="faq">
+                <details>
+                  <summary>
+                    ¿El formateador JSON envía mis datos a un servidor?
+                  </summary>
+                  <p>
+                    No. Todo el procesamiento ocurre en tu navegador con
+                    JavaScript. El JSON que pegas nunca se envía a ningún
+                    servidor ni se almacena.
+                  </p>
+                </details>
+                <details>
+                  <summary>
+                    ¿Qué diferencia hay entre formatear y minificar JSON?
+                  </summary>
+                  <p>
+                    Formatear añade saltos de línea y sangría para que el JSON
+                    sea legible. Minificar elimina todos los espacios
+                    innecesarios para reducir el tamaño del archivo.
+                  </p>
+                </details>
+                <details>
+                  <summary>
+                    ¿Puedo validar un JSON con errores de sintaxis?
+                  </summary>
+                  <p>
+                    Sí. La herramienta muestra el mensaje de error, la línea y
+                    la columna aproximada, además de un fragmento del contenido
+                    para localizar el problema.
+                  </p>
+                </details>
+              </div>
+            </section>
+          </div>
+        </div>
+
+        <aside class="sidebar" aria-label="Información adicional">
+          <aside class="ad ad--rectangle" aria-label="Espacio publicitario">
+            <span class="ad-label">Publicidad</span>
+            <span class="ad-size">Banner 300 × 250</span>
+          </aside>
+
+          <section class="info-card" aria-labelledby="tips-title">
+            <h2 class="info-title" id="tips-title">Hecho para ir rápido</h2>
+            <ul class="tips-list">
+              <li>
+                <svg
+                  class="icon icon--accent"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true">
+                  <path
+                    d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path>
+                  <path d="m9 12 2 2 4-4"></path>
+                </svg>
+                <span
+                  ><strong>Privado por diseño.</strong> Ningún dato sale de tu
+                  dispositivo.</span
+                >
+              </li>
+              <li>
+                <svg
+                  class="icon icon--accent"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true">
+                  <path
+                    d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"></path>
+                </svg>
+                <span
+                  ><strong>Instantáneo.</strong> Sin dependencias externas ni
+                  recargas.</span
+                >
+              </li>
+              <li>
+                <svg
+                  class="icon icon--accent"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true">
+                  <path
+                    d="M8 3H7a2 2 0 0 0-2 2v5a2 2 0 0 1-2 2 2 2 0 0 1 2 2v5c0 1.1.9 2 2 2h1"></path>
+                  <path
+                    d="M16 21h1a2 2 0 0 0 2-2v-5c0-1.1.9-2 2-2a2 2 0 0 1-2-2V5a2 2 0 0 0-2-2h-1"></path>
+                </svg>
+                <span
+                  ><strong>Flexible.</strong> Sangría de 2 o 4 espacios,
+                  tabulaciones y copiado en un clic.</span
+                >
+              </li>
+            </ul>
+          </section>
+
+          <section class="info-card" aria-labelledby="tools-title">
+            <h2 class="info-title" id="tools-title">Más herramientas</h2>
+            <ul class="sidebar-links">
+              <li>
+                <a href="json-to-csv.html"
+                  >Convertidor JSON ↔ CSV <span>Tablas</span></a
+                >
+              </li>
+              <li>
+                <a href="base64-encoder.html"
+                  >Codificador Base64 <span>Texto y archivos</span></a
+                >
+              </li>
+              <li>
+                <a href="jwt-decoder.html"
+                  >Decodificador JWT <span>Tokens</span></a
+                >
+              </li>
+              <li>
+                <a href="uuid-generator.html"
+                  >Generador de UUID <span>v4 y v1</span></a
+                >
+              </li>
+            </ul>
+          </section>
+        </aside>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <p class="footer-brand">JSON<span>Kit</span></p>
+        <p>© <span id="year">2026</span> JSONKit · Formateador de JSON</p>
+        <p class="footer-note">
+          <svg
+            class="icon icon--sm"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true">
+            <rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+          </svg>
+          Sin servidores. Sin tracking.
+        </p>
+      </div>
+    </footer>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script src="js/app.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/json-formatter.js"></script>
+  </body>
+</html>

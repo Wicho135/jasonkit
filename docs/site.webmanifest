@@ -1,0 +1,16 @@
+{
+  "short_name": "JSONKit",
+  "name": "JSONKit — Formateador de JSON",
+  "description": "Formatea, valida y minifica JSON en tu navegador.",
+  "icons": [
+    {
+      "src": "icon.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    }
+  ],
+  "start_url": "./",
+  "background_color": "#0f172a",
+  "theme_color": "#0f172a",
+  "display": "standalone"
+}
